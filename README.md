@@ -1,5 +1,7 @@
 # Vicecity Gaps
 
-Site statique (GitHub Pages, dossier `docs/`) du digest quotidien Vicecity Gaps : page d'abonnement et CGV.
+Site statique (GitHub Pages, dossier `docs/`) du digest quotidien Vicecity Gaps.
 
-Le paiement passe par un Payment Link Stripe (Managed Payments) et la gestion de l'abonnement par le portail client Stripe. Les liens sont actuellement en **mode test**.
+Phase actuelle : **validation de la demande**. Inscription gratuite via Buttondown et liste d'attente Premium (tag `premium-waitlist`), sans paiement. Les liens d'ads portent `utm_source` / `utm_campaign`, convertis en tags Buttondown `src:…` / `camp:…`.
+
+Le paiement Stripe (Payment Link + Managed Payments) est prêt en mode test et sera branché si la demande est confirmée.

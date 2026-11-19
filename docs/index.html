@@ -4,7 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Vicecity Gaps</title>
-  <meta name="description" content="Chaque matin, les questions que les joueurs de GTA VI posent et qui n'ont pas encore de bonne réponse vidéo.">
+  <meta name="description" content="Chaque matin, les questions que les joueurs de GTA VI posent et qui n'ont pas encore de bonne réponse vidéo. Gratuit.">
+  <meta property="og:title" content="Vicecity Gaps">
+  <meta property="og:description" content="Chaque matin, les questions GTA VI qui n'ont pas encore de bonne réponse vidéo. Gratuit.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,37 +16,80 @@
   </header>
 
   <main>
-    <p class="banner">Site en préparation : le paiement fonctionne en <strong>mode test</strong>, aucun prélèvement réel.</p>
-
-    <section class="card" aria-labelledby="sub-title">
-      <h2 id="sub-title" style="margin-top:0">Le digest complet, chaque matin</h2>
-      <p class="price"><strong>9&nbsp;€</strong> TTC / mois · prix fondateur</p>
+    <!--
+      Formulaires Buttondown : remplacer BUTTONDOWN_USERNAME par l'identifiant de la newsletter
+      (sed -i '' 's/BUTTONDOWN_USERNAME/<id>/g' docs/index.html).
+      Les tags src:… et camp:… viennent des paramètres utm_source / utm_campaign des liens d'ads (voir script en bas).
+    -->
+    <section class="card" aria-labelledby="free-title">
+      <h2 id="free-title" style="margin-top:0">Reçois le digest gratuit</h2>
       <ul>
-        <li>Toutes les questions GTA&nbsp;VI du jour qui n'ont pas encore de bonne réponse vidéo</li>
-        <li>Par e-mail chaque matin, et sur la page web</li>
-        <li>Sans engagement : tu annules en deux clics, quand tu veux</li>
+        <li>Les questions GTA&nbsp;VI du jour sans bonne réponse vidéo</li>
+        <li>Un e-mail par jour, le matin</li>
+        <li>Désinscription en un clic</li>
       </ul>
+      <form class="signup" action="https://buttondown.com/api/emails/embed-subscribe/BUTTONDOWN_USERNAME" method="post">
+        <label for="free-email" class="sr-only">Ton adresse e-mail</label>
+        <input id="free-email" type="email" name="email" required autocomplete="email" placeholder="ton@email.com">
+        <input type="hidden" name="tag" value="free">
+        <input type="hidden" name="embed" value="1">
+        <button class="cta" type="submit">Je m'inscris gratuitement</button>
+      </form>
+      <p class="legal">Tu recevras un e-mail pour confirmer ton inscription. <a href="confidentialite.html">Ce qu'on fait de ton e-mail</a>.</p>
+    </section>
 
-      <!-- MODE TEST : remplacer par le Payment Link live -->
-      <a class="cta" href="https://buy.stripe.com/test_00w14n9B74Sp6Cu3BE8ww00" rel="noopener">Je m'abonne</a>
-
-      <p class="legal">
-        Abonnement mensuel renouvelé automatiquement, annulable à tout moment (effet à la fin du mois en cours).
-        L'accès commence dès le paiement, à ta demande expresse.
-        Remboursement intégral sur simple demande dans les 7&nbsp;jours ; du 8<sup>e</sup> au 14<sup>e</sup>&nbsp;jour,
-        tu peux exercer ton droit de rétractation et seule la part déjà fournie reste due.
-        Paiement sécurisé par Stripe, vendu via Link.
-        <a href="cgv.html">Conditions générales de vente</a>.
-      </p>
-
-      <!-- MODE TEST : remplacer par le lien de connexion live du portail -->
-      <p class="manage">Déjà abonné ? <a href="https://billing.stripe.com/p/login/test_00w14n9B74Sp6Cu3BE8ww00" rel="noopener">Gérer ou annuler mon abonnement</a></p>
+    <section class="card card-premium" aria-labelledby="premium-title">
+      <h2 id="premium-title" style="margin-top:0">Premium <span class="pill">bientôt</span></h2>
+      <p class="price"><strong>9&nbsp;€</strong> / mois · prix fondateur réservé aux premiers inscrits</p>
+      <p>Le digest complet chaque matin, sans limite, avec toutes les questions du jour et la page web à jour en continu. Le Premium n'est pas encore ouvert : <strong>aucun paiement aujourd'hui</strong>. Laisse ton e-mail et tu seras prévenu en premier, avec le prix fondateur.</p>
+      <form class="signup" action="https://buttondown.com/api/emails/embed-subscribe/BUTTONDOWN_USERNAME" method="post">
+        <label for="premium-email" class="sr-only">Ton adresse e-mail</label>
+        <input id="premium-email" type="email" name="email" required autocomplete="email" placeholder="ton@email.com">
+        <input type="hidden" name="tag" value="premium-waitlist">
+        <input type="hidden" name="embed" value="1">
+        <button class="cta cta-secondary" type="submit">Je veux le Premium</button>
+      </form>
+      <p class="legal">Tu reçois aussi le digest gratuit. <a href="confidentialite.html">Confidentialité</a>.</p>
     </section>
   </main>
 
   <footer>
-    <a href="cgv.html">CGV et mentions légales</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+    <a href="confidentialite.html">Confidentialité</a>
     <span>Site non affilié à Rockstar Games ni à Take-Two Interactive.</span>
   </footer>
+
+  <script>
+    // Attribution des ads sans cookie ni pixel : utm_source / utm_campaign → tags Buttondown.
+    (function () {
+      var clean = function (v) {
+        return String(v || "").toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 40);
+      };
+      var params = new URLSearchParams(window.location.search);
+      var src = clean(params.get("utm_source"));
+      var camp = clean(params.get("utm_campaign"));
+      try {
+        if (src || camp) {
+          sessionStorage.setItem("vg_utm", JSON.stringify({ src: src, camp: camp }));
+        } else {
+          var saved = JSON.parse(sessionStorage.getItem("vg_utm") || "{}");
+          src = saved.src || "";
+          camp = saved.camp || "";
+        }
+      } catch (e) { /* stockage indisponible : on garde les valeurs de l'URL */ }
+      var tags = [];
+      if (src) tags.push("src:" + src);
+      if (camp) tags.push("camp:" + camp);
+      document.querySelectorAll("form.signup").forEach(function (form) {
+        tags.forEach(function (tag) {
+          var input = document.createElement("input");
+          input.type = "hidden";
+          input.name = "tag";
+          input.value = tag;
+          form.appendChild(input);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
