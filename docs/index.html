@@ -3,90 +3,271 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Vicecity Gaps</title>
-  <meta name="description" content="Every morning, the GTA VI questions players are asking right now that still have no good video answer. Free.">
-  <meta property="og:title" content="Vicecity Gaps">
-  <meta property="og:description" content="Every morning, the GTA VI questions that still have no good video answer. Free.">
-  <link rel="stylesheet" href="style.css">
+  <title>GTA VI Question Gap: what players asked today that YouTube hasn't answered</title>
+  <meta name="description" content="A daily email for small GTA VI creators: real player questions from the last 24 hours, each with what's already on YouTube. Get the next digest free.">
+  <link rel="canonical" href="https://navidemad.github.io/vicecity-gaps/">
+  <meta name="theme-color" content="#0d0b14">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GTA VI Question Gap">
+  <meta property="og:url" content="https://navidemad.github.io/vicecity-gaps/">
+  <meta property="og:title" content="What GTA VI players asked today that YouTube hasn't answered yet">
+  <meta property="og:description" content="A daily email for small GTA VI creators: real player questions from the last 24 hours, each with what's already on YouTube.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="What GTA VI players asked today that YouTube hasn't answered yet">
+  <meta name="twitter:description" content="A daily email for small GTA VI creators: real player questions from the last 24 hours, each with what's already on YouTube.">
+
+  <style>
+    :root {
+      --bg: #0d0b14;
+      --bg-2: #15121f;
+      --line: #2a2438;
+      --fg: #f3f0fa;
+      --muted: #a9a2bb;
+      --pink: #ff4f9a;
+      --cyan: #3fe0f0;
+      --amber: #ffc24b;
+      --green: #5be49b;
+      --radius: 14px;
+      color-scheme: dark;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(60rem 30rem at 85% -10%, rgba(255, 79, 154, .16), transparent 60%),
+        radial-gradient(50rem 28rem at -10% 10%, rgba(63, 224, 240, .10), transparent 60%),
+        var(--bg);
+      color: var(--fg);
+      font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    a { color: var(--cyan); }
+    .wrap { max-width: 46rem; margin: 0 auto; padding: 0 16px; }
+    section { padding: 2.5rem 0; }
+    h1, h2, h3 { line-height: 1.15; letter-spacing: -.01em; }
+    h2 { font-size: 1.5rem; margin: 0 0 1rem; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      margin: 2.5rem 0 1rem; padding: .3rem .75rem;
+      border: 1px solid var(--line); border-radius: 999px;
+      color: var(--muted); font-size: .8125rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: var(--pink); box-shadow: 0 0 10px var(--pink); }
+    h1 { font-size: clamp(2rem, 7vw, 3.1rem); margin: 0 0 1rem; }
+    h1 .hl { background: linear-gradient(90deg, var(--pink), var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .sub { color: var(--muted); font-size: 1.125rem; margin: 0 0 1.75rem; }
+
+    .signup { display: flex; flex-wrap: wrap; gap: .6rem; margin: 0 0 .75rem; }
+    .signup input {
+      flex: 1 1 15rem; min-width: 0; padding: .9rem 1rem;
+      border: 1px solid var(--line); border-radius: 10px;
+      background: var(--bg-2); color: var(--fg); font: inherit;
+    }
+    .signup input::placeholder { color: #776f8a; }
+    .signup input:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
+    .btn {
+      display: inline-flex; justify-content: center; align-items: center;
+      padding: .9rem 1.3rem; border: 0; border-radius: 10px;
+      font: inherit; font-weight: 700; text-decoration: none; cursor: pointer;
+    }
+    .btn-primary { flex: 1 1 auto; background: var(--pink); color: #160812; box-shadow: 0 6px 24px rgba(255, 79, 154, .35); }
+    .btn-primary:hover { filter: brightness(1.08); }
+    .btn-secondary { border: 1px solid var(--cyan); color: var(--cyan); background: transparent; }
+    .btn-secondary:hover { background: rgba(63, 224, 240, .08); }
+    .fine { color: var(--muted); font-size: .875rem; margin: 0; }
+    .founder { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; margin-top: 1.25rem; }
+
+    .benefits { display: grid; gap: .75rem; padding: 0; margin: 0; list-style: none; }
+    .benefits li, .steps li {
+      background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem 1.2rem;
+    }
+    .benefits strong { display: block; margin-bottom: .2rem; font-size: 1.0625rem; }
+    .benefits span, .steps p { color: var(--muted); }
+    .steps { display: grid; gap: .75rem; padding: 0; margin: 0; list-style: none; counter-reset: step; }
+    .steps li { counter-increment: step; position: relative; padding-left: 3.6rem; }
+    .steps li::before {
+      content: counter(step); position: absolute; left: 1.1rem; top: 1.05rem;
+      width: 1.8rem; height: 1.8rem; display: grid; place-items: center;
+      border-radius: 8px; background: rgba(63, 224, 240, .12); color: var(--cyan); font-weight: 800;
+    }
+    .steps h3 { margin: 0 0 .2rem; font-size: 1.0625rem; }
+    .steps p { margin: 0; }
+
+    .digest { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem; }
+    .digest p, .digest ul, .digest ol { color: var(--muted); }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: .9375rem; }
+    th { text-align: left; color: var(--muted); font-size: .75rem; letter-spacing: .05em; text-transform: uppercase; padding: .5rem .6rem; border-bottom: 1px solid var(--line); }
+    td { padding: .75rem .6rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+    tr:last-child td { border-bottom: 0; }
+    td:first-child { font-weight: 600; }
+    .status { display: inline-block; padding: .15rem .55rem; border-radius: 999px; font-size: .8125rem; font-weight: 700; white-space: nowrap; }
+    .status-none { background: rgba(255, 79, 154, .15); color: var(--pink); }
+    .status-weak { background: rgba(255, 194, 75, .14); color: var(--amber); }
+    .status-conflict { background: rgba(63, 224, 240, .13); color: var(--cyan); }
+    .status-covered { background: rgba(91, 228, 155, .13); color: var(--green); }
+    @media (max-width: 560px) {
+      thead { display: none; }
+      table, tbody, tr, td { display: block; width: 100%; }
+      tr { padding: .6rem 0; border-bottom: 1px solid var(--line); }
+      tr:last-child { border-bottom: 0; }
+      td { border: 0; padding: .2rem 0; }
+      td:not(:first-child)::before { content: attr(data-label) ": "; color: var(--muted); font-size: .8125rem; }
+    }
+
+    details.faq { border-bottom: 1px solid var(--line); }
+    details.faq summary { cursor: pointer; padding: 1rem 2rem 1rem 0; font-weight: 600; list-style: none; position: relative; }
+    details.faq summary::-webkit-details-marker { display: none; }
+    details.faq summary::after { content: "+"; position: absolute; right: .25rem; top: .9rem; color: var(--cyan); font-size: 1.25rem; }
+    details.faq[open] summary::after { content: "−"; }
+    details.faq p { margin: 0 0 1rem; color: var(--muted); }
+
+    .cta-band { text-align: center; }
+    .cta-band .signup { max-width: 32rem; margin: 0 auto .75rem; }
+
+    footer { border-top: 1px solid var(--line); padding: 2rem 0 3rem; color: var(--muted); font-size: .875rem; }
+    footer p { margin: 0 0 .75rem; }
+    footer details { margin: .5rem 0; }
+    footer summary { cursor: pointer; color: var(--fg); }
+    .todo { color: var(--amber); }
+  </style>
+
+  <!-- GoatCounter: cookieless analytics. Site code "vicecitygaps" must exist on goatcounter.com (see README). -->
+  <script data-goatcounter="https://vicecitygaps.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Vicecity Gaps</h1>
-    <p class="lead">Every morning, the GTA&nbsp;VI questions players are asking right now that still have no good video answer. Find your next video before everyone else does.</p>
-  </header>
+  <main class="wrap">
+    <header>
+      <p class="eyebrow">GTA VI Question Gap · daily digest</p>
+      <h1>What GTA&nbsp;VI players asked today that <span class="hl">YouTube hasn't answered yet</span></h1>
+      <p class="sub">A daily email for small GTA&nbsp;VI creators: real player questions from the last 24 hours. Each one links to the post and shows what's already on YouTube.</p>
 
-  <main>
-    <!--
-      Buttondown forms (newsletter: vicecitygaps).
-      The src:… and camp:… tags come from the utm_source / utm_campaign parameters of ad links (see the script at the bottom).
-    -->
-    <section class="card" aria-labelledby="free-title">
-      <h2 id="free-title" style="margin-top:0">Get the free digest</h2>
-      <ul>
-        <li>Today's GTA&nbsp;VI questions with no good video answer yet</li>
-        <li>One email a day, every morning</li>
-        <li>Unsubscribe in one click</li>
-      </ul>
-      <form class="signup" action="https://buttondown.com/api/emails/embed-subscribe/vicecitygaps" method="post">
-        <label for="free-email" class="sr-only">Your email address</label>
-        <input id="free-email" type="email" name="email" required autocomplete="email" placeholder="you@email.com">
+      <form class="signup" id="signup" action="https://buttondown.com/api/emails/embed-subscribe/vicecitygaps" method="post">
+        <label for="email" class="sr-only">Your email address</label>
+        <input id="email" type="email" name="email" required autocomplete="email" placeholder="you@email.com">
         <input type="hidden" name="tag" value="free">
         <input type="hidden" name="embed" value="1">
-        <button class="cta" type="submit">Subscribe for free</button>
+        <button class="btn btn-primary" type="submit">Get the next digest free</button>
       </form>
-      <p class="legal">You'll get an email to confirm your subscription. <a href="privacy.html">How we use your email</a>.</p>
+      <p class="fine">Free. You'll confirm by email. Unsubscribe in one click.</p>
+
+      <div class="founder">
+        <!-- Stripe Payment Link: replace with the LIVE link before running ads (see README). -->
+        <a class="btn btn-secondary" id="founder-cta" data-stripe-link href="https://buy.stripe.com/test_00w14n9B74Sp6Cu3BE8ww00" rel="noopener">€9/month founder price, refundable</a>
+        <span class="fine">Full refund within 14 days, cancel anytime.</span>
+      </div>
+    </header>
+
+    <section aria-labelledby="why">
+      <h2 id="why">Why creators use it</h2>
+      <ul class="benefits">
+        <li><strong>Make videos people already asked for.</strong><span>Every question links to the real post, with likes and views.</span></li>
+        <li><strong>Skip what's already covered.</strong><span>Each question is marked: no good video yet, small video only, conflicting answers, or covered.</span></li>
+        <li><strong>Five minutes a day.</strong><span>In your inbox every morning, Europe time.</span></li>
+      </ul>
     </section>
 
-    <section class="card card-premium" aria-labelledby="premium-title">
-      <h2 id="premium-title" style="margin-top:0">Premium <span class="pill">coming soon</span></h2>
-      <p class="price"><strong>€9</strong> / month · founder price for early sign-ups</p>
-      <p>The full digest every morning, with no limits: every question of the day and a web page updated all day long. Premium isn't open yet, so <strong>there's nothing to pay today</strong>. Leave your email and you'll be the first to know, with the founder price.</p>
+    <section aria-labelledby="how">
+      <h2 id="how">How it works</h2>
+      <ol class="steps">
+        <li><h3>We read public posts</h3><p>Questions about GTA&nbsp;VI posted on X and public guide and news pages in the last 24 hours.</p></li>
+        <li><h3>We check YouTube</h3><p>For each repeated question, we search YouTube and note the best video and its views, or say there isn't one.</p></li>
+        <li><h3>You get the list</h3><p>One email, sorted by demand. Pick a topic, make the video.</p></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="sample">
+      <h2 id="sample">Sample from Digest #1</h2>
+      <div class="digest">
+<!-- digest:start -->
+<div class="table-wrap"><table><thead><tr><th scope="col">Question</th><th scope="col">Asked on X</th><th scope="col">YouTube</th></tr></thead><tbody><tr><td data-label="Question">Why can&#x27;t I stream GTA VI to Discord or Twitch?</td><td data-label="Asked on X">2 askers, 18 Nov</td><td data-label="YouTube"><span class="status status-none">No good video yet</span></td></tr><tr><td data-label="Question">Update stuck at 100%, what now?</td><td data-label="Asked on X">221 views, 18 Nov</td><td data-label="YouTube"><span class="status status-weak">Small video only</span></td></tr><tr><td data-label="Question">Is there first-person mode?</td><td data-label="Asked on X">Conflicting posts</td><td data-label="YouTube"><span class="status status-conflict">Conflicting answers</span></td></tr></tbody></table></div>
+<!-- digest:end -->
+      </div>
+    </section>
+
+    <section aria-labelledby="faq">
+      <h2 id="faq">FAQ</h2>
+      <details class="faq"><summary>Is it free?</summary><p>The next two digests are free. The founder price is for the daily digest after that.</p></details>
+      <details class="faq"><summary>What do I get for €9/month?</summary><p>The full daily digest from Monday 23 Nov, at €9/month for as long as you stay subscribed. If the daily digest doesn't launch, every founder gets a full refund automatically.</p></details>
+      <details class="faq"><summary>Refunds?</summary><p>Ask within 14 days of any payment and you get it all back, no questions. Cancel anytime from the link in your receipt.</p></details>
+      <details class="faq"><summary>Are you affiliated with Rockstar Games?</summary><p>No. This is an independent project, not affiliated with, endorsed or sponsored by Rockstar Games or Take-Two Interactive. Grand Theft Auto and GTA are their trademarks.</p></details>
+      <details class="faq"><summary>Where does the data come from?</summary><p>Public X posts, public YouTube search results, and public guide and news sites. No private messages, no logins, no personal data beyond your email.</p></details>
+      <details class="faq"><summary>Spoilers?</summary><p>Questions are written spoiler-light. Story questions are marked.</p></details>
+    </section>
+
+    <section class="cta-band" aria-labelledby="cta-again">
+      <h2 id="cta-again">Get tomorrow's questions first</h2>
       <form class="signup" action="https://buttondown.com/api/emails/embed-subscribe/vicecitygaps" method="post">
-        <label for="premium-email" class="sr-only">Your email address</label>
-        <input id="premium-email" type="email" name="email" required autocomplete="email" placeholder="you@email.com">
-        <input type="hidden" name="tag" value="premium-waitlist">
+        <label for="email-2" class="sr-only">Your email address</label>
+        <input id="email-2" type="email" name="email" required autocomplete="email" placeholder="you@email.com">
+        <input type="hidden" name="tag" value="free">
         <input type="hidden" name="embed" value="1">
-        <button class="cta cta-secondary" type="submit">I want Premium</button>
+        <button class="btn btn-primary" type="submit">Get the next digest free</button>
       </form>
-      <p class="legal">You'll also get the free digest. <a href="privacy.html">Privacy</a>.</p>
+      <p class="fine">Or <a href="https://buy.stripe.com/test_00w14n9B74Sp6Cu3BE8ww00" data-stripe-link rel="noopener">lock in the €9/month founder price</a>.</p>
     </section>
   </main>
 
   <footer>
-    <a href="legal.html">Legal notice</a>
-    <a href="privacy.html">Privacy</a>
-    <span>Not affiliated with Rockstar Games or Take-Two Interactive.</span>
+    <div class="wrap">
+      <p><strong>Not affiliated with Rockstar Games or Take-Two Interactive.</strong> Grand Theft Auto and GTA are trademarks of Take-Two Interactive Software, Inc.</p>
+      <p id="privacy">Privacy: this site uses <a href="https://www.goatcounter.com" rel="noopener">GoatCounter</a> for anonymous, cookie-free visit counts. Your email is used only to send the digest (via Buttondown); payments are handled by Stripe. No ads trackers, no cookies.</p>
+      <details>
+        <summary>Privacy details</summary>
+        <p>Data collected: your email address (to send the digest, legal basis: your consent, confirmed by email), the ad campaign that brought you here (from the link you clicked, to measure which ads work), and anonymous page and click counts. Processors: Buttondown LLC (email, United States), Stripe (payments), GoatCounter (analytics, no cookies, no personal data). We keep your email until you unsubscribe. To access or delete your data, write to <span class="todo">[contact email]</span>. You can complain to the CNIL (cnil.fr) or your local data protection authority.</p>
+      </details>
+      <details>
+        <summary>Legal notice</summary>
+        <p>Publisher: Navid EMAD, entrepreneur individuel (EI), French micro-entreprise. SIREN <span class="todo">[to complete]</span>. Address <span class="todo">[to complete]</span>. Contact <span class="todo">[contact email]</span>. Publication director: Navid EMAD. Hosting: GitHub, Inc. (GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, United States.</p>
+      </details>
+    </div>
   </footer>
 
+  <style>.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
   <script>
-    // Ad attribution without cookies or pixels: utm_source / utm_campaign → Buttondown tags.
+    // UTM passthrough + GoatCounter events. No cookies; sessionStorage only keeps UTMs across reloads.
     (function () {
-      var clean = function (v) {
-        return String(v || "").toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 40);
-      };
-      var params = new URLSearchParams(window.location.search);
-      var src = clean(params.get("utm_source"));
-      var camp = clean(params.get("utm_campaign"));
+      var KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+      var clean = function (v) { return String(v || "").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 100); };
+      var params = new URLSearchParams(location.search);
+      var utm = {};
+      KEYS.forEach(function (k) { var v = clean(params.get(k)); if (v) utm[k] = v; });
       try {
-        if (src || camp) {
-          sessionStorage.setItem("vg_utm", JSON.stringify({ src: src, camp: camp }));
-        } else {
-          var saved = JSON.parse(sessionStorage.getItem("vg_utm") || "{}");
-          src = saved.src || "";
-          camp = saved.camp || "";
+        if (Object.keys(utm).length) sessionStorage.setItem("qg_utm", JSON.stringify(utm));
+        else utm = JSON.parse(sessionStorage.getItem("qg_utm") || "{}");
+      } catch (e) { /* storage blocked: use URL values only */ }
+
+      var source = (utm.utm_source || "direct").toLowerCase();
+      var campaign = (utm.utm_campaign || "").toLowerCase();
+      var label = campaign ? source + "/" + campaign : source;
+
+      function track(name, title) {
+        var gc = window.goatcounter;
+        if (gc && typeof gc.count === "function") {
+          gc.count({ path: name, title: title, event: true, referrer: label });
         }
-      } catch (e) { /* storage unavailable: keep the values from the URL */ }
-      var tags = [];
-      if (src) tags.push("src:" + src);
-      if (camp) tags.push("camp:" + camp);
+      }
+
+      // Stripe Payment Links accept utm_* and client_reference_id (letters, digits, - and _).
+      document.querySelectorAll("[data-stripe-link]").forEach(function (a) {
+        var url = new URL(a.href);
+        KEYS.forEach(function (k) { if (utm[k]) url.searchParams.set(k, utm[k]); });
+        url.searchParams.set("client_reference_id", clean(label.replace("/", "__")) || "direct");
+        a.href = url.toString();
+        a.addEventListener("click", function () { track("click-stripe-founder", "Founder €9/month (Stripe)"); });
+      });
+
+      // Buttondown: attach source/campaign tags and count the submit (sent with sendBeacon).
       document.querySelectorAll("form.signup").forEach(function (form) {
-        tags.forEach(function (tag) {
+        [source !== "direct" ? "src:" + source : "", campaign ? "camp:" + campaign : ""].forEach(function (tag) {
+          if (!tag) return;
           var input = document.createElement("input");
-          input.type = "hidden";
-          input.name = "tag";
-          input.value = tag;
+          input.type = "hidden"; input.name = "tag"; input.value = tag;
           form.appendChild(input);
         });
+        form.addEventListener("submit", function () { track("signup-submit", "Free digest sign-up"); });
       });
     })();
   </script>

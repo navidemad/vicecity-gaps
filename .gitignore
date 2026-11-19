@@ -2,3 +2,4 @@
 STRIPE.md
 site-snippets/
 .DS_Store
+__pycache__/
