@@ -1,0 +1,55 @@
+:root {
+  --bg: #fbfbf9;
+  --fg: #1a1a1a;
+  --muted: #5c5c5c;
+  --card: #f0f0ec;
+  --accent: #e8407a;
+  --accent-fg: #ffffff;
+  --warn-bg: #fff4d6;
+  --warn-fg: #5a4300;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141416;
+    --fg: #f2f2f2;
+    --muted: #a8a8ad;
+    --card: #1f1f22;
+    --warn-bg: #3a3012;
+    --warn-fg: #f5e2a8;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+main, header, footer { max-width: 44rem; margin: 0 auto; padding: 0 16px; }
+header { padding-top: 2.5rem; }
+h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 .5rem; }
+h2 { font-size: 1.25rem; margin: 2rem 0 .5rem; }
+a { color: inherit; }
+.lead { font-size: 1.125rem; color: var(--muted); margin: 0 0 1.5rem; }
+.card { background: var(--card); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; }
+.price { margin: 0 0 1rem; font-size: 1.125rem; }
+.price strong { font-size: 1.75rem; }
+.card ul { margin: 0 0 1.25rem; padding-left: 1.25rem; }
+.cta {
+  display: inline-block;
+  padding: .8rem 1.4rem;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-weight: 700;
+  text-decoration: none;
+}
+.cta:focus-visible { outline: 3px solid var(--fg); outline-offset: 2px; }
+.legal { margin: 1rem 0 0; font-size: .8125rem; line-height: 1.45; color: var(--muted); }
+.manage { margin: .75rem 0 0; font-size: .875rem; }
+.banner { background: var(--warn-bg); color: var(--warn-fg); border-radius: 8px; padding: .75rem 1rem; font-size: .9rem; }
+.todo { background: var(--warn-bg); color: var(--warn-fg); padding: 0 .25em; border-radius: 3px; }
+blockquote { margin: 1rem 0; padding: .75rem 1rem; border-left: 3px solid var(--muted); background: var(--card); }
+footer { padding: 2rem 16px 3rem; font-size: .875rem; color: var(--muted); }
+footer a { margin-right: 1rem; }
