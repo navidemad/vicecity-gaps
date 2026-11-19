@@ -35,8 +35,16 @@ Local preview: `python3 -m http.server 8765 --directory docs`, then open http://
 
 ## Tracking
 
-- **GoatCounter** (cookie-free, no consent banner): page views, plus the `signup-submit` event on either sign-up form. The event's referrer is `source/campaign` from the UTM parameters (`direct` when there are none).
+- **GoatCounter** (cookie-free, no consent banner): page views, plus `signup-submit` on either sign-up form and `signup-marketing-optin` when the optional box is ticked. The event's referrer is `source/campaign` from the UTM parameters (`direct` when there are none).
 - **UTM passthrough**: `utm_*` parameters on the landing URL are kept for the session and added as Buttondown tags `src:<source>` and `camp:<campaign>` on sign-up (plus `free`).
+
+## Email consent (for future products)
+
+Each form has an optional, unchecked box: "Also email me about other GTA VI tools I build". Ticking it adds the Buttondown tag **`marketing-ok`**.
+
+- Only email subscribers tagged `marketing-ok` about other products; everyone else gets the digest only.
+- Keep future products on the same Buttondown account and the same publisher name, since consent is given to you as the publisher.
+- The privacy note promises the list is never uploaded to ad platforms. Ad retargeting (Meta/TikTok/X custom audiences) would need a separate consent and an updated policy, and only for people who sign up after that change.
 
 Ad link format: `https://navidemad.github.io/vicecity-gaps/?utm_source=x&utm_medium=cpc&utm_campaign=launch_a`
 

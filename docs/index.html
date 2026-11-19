@@ -60,7 +60,7 @@
     .sub { color: var(--muted); font-size: 1.125rem; margin: 0 0 1.75rem; }
 
     .signup { display: flex; flex-wrap: wrap; gap: .6rem; margin: 0 0 .75rem; }
-    .signup input {
+    .signup input[type="email"] {
       flex: 1 1 15rem; min-width: 0; padding: .9rem 1rem;
       border: 1px solid var(--line); border-radius: 10px;
       background: var(--bg-2); color: var(--fg); font: inherit;
@@ -75,6 +75,8 @@
     .btn-primary { flex: 1 1 auto; background: var(--pink); color: #160812; box-shadow: 0 6px 24px rgba(255, 79, 154, .35); }
     .btn-primary:hover { filter: brightness(1.08); }
     .fine { color: var(--muted); font-size: .875rem; margin: 0; }
+    .optin { flex: 1 1 100%; display: flex; gap: .55rem; align-items: flex-start; color: var(--muted); font-size: .875rem; line-height: 1.45; cursor: pointer; text-align: left; }
+    .optin input { flex: none; width: 1.05rem; height: 1.05rem; margin: .12rem 0 0; accent-color: var(--pink); }
 
     .benefits { display: grid; gap: .75rem; padding: 0; margin: 0; list-style: none; }
     .benefits li, .steps li {
@@ -147,6 +149,7 @@
         <input type="hidden" name="tag" value="free">
         <input type="hidden" name="embed" value="1">
         <button class="btn btn-primary" type="submit">Get the daily digest free</button>
+        <label class="optin"><input type="checkbox" name="tag" value="marketing-ok"> Also email me about other GTA&nbsp;VI tools I build (occasionally). Optional.</label>
       </form>
       <p class="fine">Free. You'll confirm by email. Unsubscribe in one click.</p>
 
@@ -195,6 +198,7 @@
         <input type="hidden" name="tag" value="free">
         <input type="hidden" name="embed" value="1">
         <button class="btn btn-primary" type="submit">Get the daily digest free</button>
+        <label class="optin"><input type="checkbox" name="tag" value="marketing-ok"> Also email me about other GTA&nbsp;VI tools I build (occasionally). Optional.</label>
       </form>
     </section>
   </main>
@@ -202,10 +206,10 @@
   <footer>
     <div class="wrap">
       <p><strong>Not affiliated with Rockstar Games or Take-Two Interactive.</strong> Grand Theft Auto and GTA are trademarks of Take-Two Interactive Software, Inc.</p>
-      <p id="privacy">Privacy: this site uses <a href="https://www.goatcounter.com" rel="noopener">GoatCounter</a> for anonymous, cookie-free visit counts. Your email is used only to send the digest (via Buttondown). No ad trackers, no cookies.</p>
+      <p id="privacy">Privacy: this site uses <a href="https://www.goatcounter.com" rel="noopener">GoatCounter</a> for anonymous, cookie-free visit counts. Your email is used to send the digest (via Buttondown) and, only if you tick the box, occasional emails about other GTA&nbsp;VI tools I build. Unsubscribe from either at any time. No ad trackers, no cookies.</p>
       <details>
         <summary>Privacy details</summary>
-        <p>Data collected: your email address (to send the digest, legal basis: your consent, confirmed by email), the ad campaign that brought you here (from the link you clicked, to measure which ads work), and anonymous page and click counts. Processors: Buttondown LLC (email, United States), GoatCounter (analytics, no cookies, no personal data). We keep your email until you unsubscribe. To access or delete your data, write to <span class="todo">[contact email]</span>. You can complain to the CNIL (cnil.fr) or your local data protection authority.</p>
+        <p>Data collected: your email address, used to send the digest and, if you ticked the optional box, occasional emails about other GTA VI tools and products from the same publisher (legal basis: your consent, given separately for each and confirmed by email; your address is never sold, shared or uploaded to ad platforms), the ad campaign that brought you here (from the link you clicked, to measure which ads work), and anonymous page and click counts. Processors: Buttondown LLC (email, United States), GoatCounter (analytics, no cookies, no personal data). We keep your email until you unsubscribe. To access or delete your data, write to <span class="todo">[contact email]</span>. You can complain to the CNIL (cnil.fr) or your local data protection authority.</p>
       </details>
       <details>
         <summary>Legal notice</summary>
@@ -247,7 +251,11 @@
           input.type = "hidden"; input.name = "tag"; input.value = tag;
           form.appendChild(input);
         });
-        form.addEventListener("submit", function () { track("signup-submit", "Free digest sign-up"); });
+        form.addEventListener("submit", function () {
+          track("signup-submit", "Free digest sign-up");
+          var optin = form.querySelector('input[value="marketing-ok"]');
+          if (optin && optin.checked) track("signup-marketing-optin", "Opted in to other products");
+        });
       });
     })();
   </script>
