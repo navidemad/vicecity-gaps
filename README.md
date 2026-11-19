@@ -35,22 +35,24 @@ Local preview: `python3 -m http.server 8765 --directory docs`, then open http://
 
 ## Tracking
 
-- **GoatCounter** (cookie-free, no consent banner): page views, plus two events:
-  - `click-stripe-founder`: click on either founder-price link.
-  - `signup-submit`: submit of either sign-up form.
-  Each event's referrer is `source/campaign` from the UTM parameters (`direct` when there are none).
-- **UTM passthrough**: `utm_*` parameters on the landing URL are kept for the session and:
-  - appended to the Stripe Payment Link, along with `client_reference_id=<source>__<campaign>` (shows on the Checkout Session in Stripe);
-  - added as Buttondown tags `src:<source>` and `camp:<campaign>` on sign-up (plus `free`).
+- **GoatCounter** (cookie-free, no consent banner): page views, plus the `signup-submit` event on either sign-up form. The event's referrer is `source/campaign` from the UTM parameters (`direct` when there are none).
+- **UTM passthrough**: `utm_*` parameters on the landing URL are kept for the session and added as Buttondown tags `src:<source>` and `camp:<campaign>` on sign-up (plus `free`).
 
 Ad link format: `https://navidemad.github.io/vicecity-gaps/?utm_source=x&utm_medium=cpc&utm_campaign=launch_a`
 
 ## Manual configuration checklist
 
 - [ ] **GoatCounter**: create a free account at https://www.goatcounter.com/signup with the site code **`vicecitygaps`**. If that code is taken, change it in the `data-goatcounter` script tag in `docs/index.html`. Optionally, in its settings, enable the Campaign parameters so `utm_campaign` shows in the Campaigns widget.
-- [ ] **Stripe live Payment Link**: the page currently points to the **test-mode** link (`https://buy.stripe.com/test_…`), which charges nothing. Before running ads: activate the live account, create the €9/month product and Payment Link in live mode, then replace both `data-stripe-link` URLs in `docs/index.html`. Optional: set the link's confirmation to redirect back to the site.
-- [ ] **Stripe refund promise**: the FAQ promises a full refund within 14 days of any payment and an automatic refund if the daily digest doesn't launch. Refunds are manual (Dashboard → Payments → Refund).
 - [ ] **Buttondown**: rename the newsletter to "GTA VI Question Gap" if you want the name in confirmation emails (Settings → General), and write the welcome email. Double opt-in is on by default.
 - [ ] **Legal**: fill in the highlighted placeholders in the footer (SIREN, address, contact email).
-- [ ] **Test end to end** from the live URL with `?utm_source=test&utm_campaign=check`: sign up (tags in Buttondown), click the founder button (event in GoatCounter, `client_reference_id` on the Stripe checkout).
+- [ ] **Test end to end** from the live URL with `?utm_source=test&utm_campaign=check`: sign up, then check the tags in Buttondown and the `signup-submit` event in GoatCounter.
 - [ ] **Name and trademark**: "GTA VI" is a Take-Two trademark. Using it in the product name increases the risk of a takedown or ad rejection; consider a name that doesn't start with the mark.
+
+## Going paid later
+
+The site deliberately shows no price for now: the goal is to measure interest with free sign-ups first.
+A Stripe Payment Link (subscription, Managed Payments) is already set up in **test mode** in the Stripe sandbox. When sign-ups justify it:
+
+1. Activate the live Stripe account and create the live Payment Link.
+2. Add a button and a pricing FAQ to the page, and pass `utm_*` and `client_reference_id` to the link for attribution (Stripe Payment Links accept both).
+3. Publish terms of sale (14-day withdrawal right for EU consumers) and tell existing subscribers before anything changes for them.
