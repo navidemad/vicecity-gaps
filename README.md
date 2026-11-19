@@ -1,7 +1,7 @@
 # Vicecity Gaps
 
-Site statique (GitHub Pages, dossier `docs/`) du digest quotidien Vicecity Gaps.
+Static site (GitHub Pages, `docs/` folder) for the Vicecity Gaps daily digest.
 
-Phase actuelle : **validation de la demande**. Inscription gratuite via Buttondown et liste d'attente Premium (tag `premium-waitlist`), sans paiement. Les liens d'ads portent `utm_source` / `utm_campaign`, convertis en tags Buttondown `src:…` / `camp:…`.
+Current phase: **demand validation**. Free sign-up through Buttondown and a Premium waitlist (tag `premium-waitlist`), with no payment. Ad links carry `utm_source` / `utm_campaign`, turned into Buttondown tags `src:…` / `camp:…`.
 
-Le paiement Stripe (Payment Link + Managed Payments) est prêt en mode test et sera branché si la demande est confirmée.
+Stripe payments (Payment Link + Managed Payments) are ready in test mode and will be wired in once demand is confirmed.
